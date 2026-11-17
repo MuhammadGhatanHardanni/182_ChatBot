@@ -1,0 +1,321 @@
+:root {
+  --bg-main: #0e1116;
+  --bg-surface: #171b22;
+  --bg-surface-hover: #1f242e;
+  --bg-user-pill: #232934;
+  --accent-emerald: #10b981;
+  --accent-cyan: #06b6d4;
+  --accent-gradient: linear-gradient(135deg, #34d399 0%, #22d3ee 100%);
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --border-color: rgba(255, 255, 255, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Header Atas */
+.topbar {
+  height: 64px;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.model-pill {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.12);
+  color: #34d399;
+  border: 1px solid rgba(52, 211, 153, 0.25);
+}
+
+.new-chat-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.new-chat-btn:hover {
+  background-color: var(--bg-surface-hover);
+  border-color: rgba(255, 255, 255, 0.16);
+}
+
+/* Area Tengah */
+.chat-stage {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px 32px;
+  scroll-behavior: smooth;
+}
+
+.chat-stage::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chat-stage::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+}
+
+.chat-container {
+  max-width: 760px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Welcome Screen ala Gemini */
+.welcome-screen {
+  padding-top: 8vh;
+  animation: fadeIn 0.4s ease;
+}
+
+.welcome-screen.hidden {
+  display: none;
+}
+
+.welcome-icon {
+  margin-bottom: 14px;
+}
+
+.welcome-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(1.75rem, 4vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 8px;
+}
+
+.welcome-subtitle {
+  color: var(--text-secondary);
+  font-size: 0.98rem;
+  margin-bottom: 32px;
+}
+
+.suggestion-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 12px;
+}
+
+.suggestion-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 16px;
+  text-align: left;
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: transform 0.18s ease, background-color 0.18s ease, border-color 0.18s ease;
+}
+
+.suggestion-card:hover {
+  background-color: var(--bg-surface-hover);
+  border-color: rgba(52, 211, 153, 0.35);
+  transform: translateY(-2px);
+}
+
+.suggestion-card span {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.suggestion-card small {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+/* Daftar Pesan */
+.messages-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Pesan User (Pill kanan) */
+.user-turn {
+  align-self: flex-end;
+  max-width: 78%;
+  background-color: var(--bg-user-pill);
+  color: var(--text-primary);
+  padding: 12px 18px;
+  border-radius: 22px 22px 6px 22px;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  animation: slideUp 0.22s ease-out;
+}
+
+/* Pesan Bot (Open layout kiri + ikon sparkle) */
+.bot-turn {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  max-width: 100%;
+  animation: slideUp 0.22s ease-out;
+}
+
+.sparkle-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(52, 211, 153, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.sparkle-avatar.thinking svg {
+  animation: spinPulse 1.6s linear infinite;
+}
+
+.bot-content {
+  flex: 1;
+  font-size: 0.96rem;
+  line-height: 1.7;
+  color: #e2e8f0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  padding-top: 3px;
+}
+
+/* Floating Input Bar Bawah */
+.input-dock {
+  padding: 8px 20px 16px;
+  background: linear-gradient(to top, var(--bg-main) 75%, transparent);
+  flex-shrink: 0;
+}
+
+.input-container {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.prompt-box {
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: 28px;
+  padding: 8px 8px 8px 22px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.prompt-box:focus-within {
+  border-color: rgba(52, 211, 153, 0.45);
+  background-color: #1b2028;
+}
+
+.prompt-box input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 0.96rem;
+  outline: none;
+}
+
+.prompt-box input::placeholder {
+  color: var(--text-secondary);
+}
+
+.prompt-box button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: var(--accent-gradient);
+  color: #06211a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: transform 0.15s ease, opacity 0.2s ease;
+}
+
+.prompt-box button:hover:not(:disabled) {
+  transform: scale(1.06);
+}
+
+.prompt-box button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.disclaimer {
+  text-align: center;
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  margin-top: 8px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spinPulse {
+  0% { transform: rotate(0deg) scale(0.95); }
+  50% { transform: rotate(180deg) scale(1.12); }
+  100% { transform: rotate(360deg) scale(0.95); }
+}
